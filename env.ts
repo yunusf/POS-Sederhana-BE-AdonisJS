@@ -21,4 +21,7 @@ export default Env.rules({
   APP_NAME: Env.schema.string(),
   DRIVE_DISK: Env.schema.enum(['local'] as const),
   NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
+
+  // TODO: Open the env.ts file and paste the following code inside the Env.rules object.
+  // DB_CONNECTION: Env.schema.string(),
 })
