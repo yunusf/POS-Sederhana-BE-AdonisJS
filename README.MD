@@ -2,12 +2,12 @@
 
 POS Sederhana
 
-# Nama Pembuat project (author)
+### Nama Pembuat project (author)
 
 Yunus Fajri
 
-# Email
+### Email
 
 yunusf42@gmail.com
 
-# doumentasi API (Postman)
+## doumentasi API (Postman)
