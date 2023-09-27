@@ -10,7 +10,7 @@ Yunus Fajri
 
 yunusf42@gmail.com
 
-## doumentasi API (Postman)
+## Dokumentasi API (Postman)
 
 ### ekstensi
 
