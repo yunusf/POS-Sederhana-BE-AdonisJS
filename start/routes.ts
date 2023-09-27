@@ -23,3 +23,10 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
+
+// TODO: list Route
+/*
+  code => Route.resource('nama argumen/link').apiOnly() 
+  terminal => node ace list:routes
+*/
+Route.resource('kategori', 'KategorisController').apiOnly()
