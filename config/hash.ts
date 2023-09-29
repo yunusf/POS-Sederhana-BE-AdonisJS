@@ -75,6 +75,7 @@ export default hashConfig({
       saltSize: 16,
     },
 
+    // TODO: install this
     /*
     |--------------------------------------------------------------------------
     | Bcrypt

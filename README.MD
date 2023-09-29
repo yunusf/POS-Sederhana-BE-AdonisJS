@@ -10,9 +10,13 @@ Yunus Fajri
 
 yunusf42@gmail.com
 
-## Dokumentasi API (Postman)
+### Dokumentasi API (Postman)
 
 ### ekstensi
+
+- framework be adonis js
+- menggunakan database lucid sql
+- install phc-bcrypt
 
 #### install lucid
 
