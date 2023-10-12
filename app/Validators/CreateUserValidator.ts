@@ -38,6 +38,7 @@ export default class CreateUserValidator {
       rules.email({
         ignoreMaxLength: true,
       }),
+      rules.unique({ table: 'users', column: 'email' }),
     ]),
 
     password: schema.string([
@@ -49,7 +50,7 @@ export default class CreateUserValidator {
       rules.trim(),
     ]),
 
-    role: schema.enum(['admin', 'user']),
+    role: schema.enum(['user', 'admin']),
   })
 
   /**
