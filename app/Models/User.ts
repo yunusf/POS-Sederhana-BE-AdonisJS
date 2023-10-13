@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { DateTime } from 'luxon'
 import { BaseModel, beforeSave, column } from '@ioc:Adonis/Lucid/Orm'
-import { Hash } from '@adonisjs/core/build/standalone' // TODO: import this
+import Hash from '@ioc:Adonis/Core/Hash' // TODO: import this
 import Logger from '@ioc:Adonis/Core/Logger'
 
 export default class User extends BaseModel {
@@ -25,7 +26,7 @@ export default class User extends BaseModel {
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
       try {
-        user.password = await Hash.use('bcrypt').make(user.password)
+        user.password = await Hash.make(user.password)
       } catch (err) {
         Logger.error(err)
       }
