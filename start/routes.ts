@@ -31,6 +31,7 @@ Route.get('/', async () => {
   terminal => node ace list:routes
 */
 Route.group(() => {
-  Route.resource('kategori', 'KategorisController').apiOnly()
-  Route.resource('users', 'UsersController').apiOnly()
+  Route.resource('kategori', 'KategorisController')
+  Route.resource('users', 'UsersController')
+  Route.resource('profiles', 'ProfilesController').apiOnly()
 })
