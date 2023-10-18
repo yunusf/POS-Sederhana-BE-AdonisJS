@@ -66,7 +66,7 @@ export default class UsersController {
         const idUser = params.id // mengambil params id
 
         // membuat aturan validasi untuk request
-        const validate = schema.create({
+        const validation = schema.create({
             nama: schema.string([
                 rules.alpha({
                     allow: ['space'],
@@ -86,7 +86,7 @@ export default class UsersController {
         })
 
         // membuat var baru berisi validasi dari request dengan skema dari var validate
-        const validationPayload = await request.validate({ schema: validate })
+        const validationPayload = await request.validate({ schema: validation })
 
         // mencari data user beradsarkan id
         const updateUser = await User.findOrFail(idUser)
