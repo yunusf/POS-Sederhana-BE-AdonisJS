@@ -1,25 +1,27 @@
-# Nama Project
+# POS Sederhana bagian Beck-End
 
-POS Sederhana
+## Deskripsi singkat
 
-### Nama Pembuat project (author)
+merupakan bagian dari aplikasi POS Sederhana, memiliki peranan sebagai server side yang mengurus segala sesuatu tentang aplikasi dari sisi belakang (CRUD, Relasi Database, Authentication, dll)
 
-Yunus Fajri
+### Pembuat Project
 
-### Email
-
-yunusf42@gmail.com
+Nama: Yunus Fajri
+Email: yunusf42@gmail.com
 
 ### Dokumentasi API (Postman)
 
-### ekstensi
+### Tools Pendukung
 
-- framework be adonis js
-- menggunakan database lucid sql
-- install phc-bcrypt
+* Framework **[Adonis JS](https://adonisjs.com/)**
+* Database **SQL** dengan package **Lucid**
+* Menggunakan Hash **PHC-Bcrypt**
 
-#### install lucid
+----
 
-- npm i @adonisjs/lucid
-- node ace configure @adonisjs/lucid
-- setup file:///C:/Users/yunus/AppData/Local/Temp/adonis-1695031504908.html
+**Install lucid**
+
+1. `npm i @adonisjs/lucid`
+2. `node ace configure @adonisjs/lucid`
+3. setup file:///C:/Users/yunus/AppData/Local/Temp/adonis-1695031504908.html
+
