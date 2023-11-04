@@ -33,5 +33,6 @@ Route.get('/', async () => {
 Route.group(() => {
   Route.resource('kategori', 'KategorisController')
   Route.resource('users', 'UsersController')
-  Route.resource('profiles', 'ProfilesController').apiOnly()
+  Route.resource('profiles', 'ProfilesController')
+  Route.resource('Products', 'ProductsController')
 })
