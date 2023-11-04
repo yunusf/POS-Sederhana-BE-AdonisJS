@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -29,4 +30,8 @@ Route.get('/', async () => {
   code => Route.resource('nama argumen/link').apiOnly() 
   terminal => node ace list:routes
 */
-Route.resource('kategori', 'KategorisController').apiOnly()
+Route.group(() => {
+  Route.resource('kategori', 'KategorisController')
+  Route.resource('users', 'UsersController')
+  Route.resource('profiles', 'ProfilesController').apiOnly()
+})
