@@ -24,9 +24,9 @@ export default class Profile extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  // // menghubungkan relasi dengan user
-  // @belongsTo(() => User, {
-  //   foreignKey: 'user_id',
-  // })
-  // public user: BelongsTo<typeof User>
+  // menghubungkan relasi dengan user
+  @belongsTo(() => User, {
+    foreignKey: 'user_id',
+  })
+  public user: BelongsTo<typeof User>
 }
