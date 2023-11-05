@@ -18,6 +18,8 @@ export default class Kategori extends BaseModel {
   public updatedAt: DateTime
 
   // menghubungkan relasi dengan product melalui model product
-  @hasMany(() => Product)
+  @hasMany(() => Product, {
+    foreignKey: 'kategori_id',
+  })
   public product: HasMany<typeof Product>
 }
