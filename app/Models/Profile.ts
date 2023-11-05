@@ -25,8 +25,8 @@ export default class Profile extends BaseModel {
   public updatedAt: DateTime
 
   // // menghubungkan relasi dengan user
-  // @belongsTo(() => User, {
-  //   foreignKey: 'user_id',
-  // })
-  // public user: BelongsTo<typeof User>
+  @belongsTo(() => User, {
+    foreignKey: 'user_id',
+  })
+  public user: BelongsTo<typeof User>
 }

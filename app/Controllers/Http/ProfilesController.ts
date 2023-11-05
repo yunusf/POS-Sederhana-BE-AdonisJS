@@ -13,11 +13,11 @@ export default class ProfilesController {
 
       const validationPayload = await request.validate({ schema: validation })
 
-      const addProfile = await Profile.create(validationPayload)
+      const add = await Profile.create(validationPayload)
 
       return response.created({
         message: 'Data Created',
-        data: addProfile,
+        data: add,
       })
     } catch (err) {
       return response.badRequest({
@@ -29,11 +29,11 @@ export default class ProfilesController {
 
   public async index({ response }: HttpContextContract) {
     try {
-      const dataProfiles = await Profile.query()
+      const data = await Profile.query().preload('user')
 
       return response.ok({
         message: 'Data Success',
-        data: dataProfiles,
+        data: data,
       })
     } catch (err) {
       return response.badRequest({
@@ -44,60 +44,60 @@ export default class ProfilesController {
   }
 
   public async show({ response, params }: HttpContextContract) {
-    try {
-      const dataProfil = await Profile.findByOrFail('id', params.id)
+    const data = await Profile.query().where('id', params.id).preload('user').first()
 
-      return response.ok({
-        message: 'Data Berhasil Ditampilkan',
-        data: dataProfil,
-      })
-    } catch (err) {
+    if (!data) {
       return response.notFound({
         message: `Data Dengan id: ${params.id} Tidak Ditemukan`,
-        error: err,
       })
     }
+
+    return response.ok({
+      message: 'Data Berhasil Ditampilkan',
+      data: data,
+    })
   }
 
   public async update({ request, response, params }: HttpContextContract) {
-    const idProfil = params.id
+    try {
+      const id = params.id
 
-    const validation = schema.create({
-      alamat: schema.string([rules.trim(), rules.minLength(10)]),
-      bio: schema.string([rules.trim(), rules.minLength(10)]),
-      no_hp: schema.string([rules.trim(), rules.minLength(11), rules.maxLength(14)]),
-    })
+      const validation = schema.create({
+        alamat: schema.string([rules.trim(), rules.minLength(10)]),
+        bio: schema.string([rules.trim(), rules.minLength(10)]),
+        no_hp: schema.string([rules.trim(), rules.minLength(11), rules.maxLength(14)]),
+      })
+      // membuat var baru berisi validasi dari request dengan skema dari var validate
+      const validationPayload = await request.validate({ schema: validation })
 
-    const validationPayload = await request.validate({ schema: validation })
+      const findById = await Profile.query().where('id', id).first()
+      if (!findById) {
+        return response.notFound({
+          message: `Data Dengan id: ${id} Tidak Ditemukan`,
+        })
+      }
 
-    const updateProfil = await Profile.findOrFail(idProfil) // findorfail tdk bisa di tangkap oleh !updateProfile
+      const update = await Profile.query().where('id', id).update(validationPayload)
 
-    updateProfil.alamat = validationPayload.alamat
-    updateProfil.bio = validationPayload.bio
-    updateProfil.no_hp = validationPayload.no_hp
+      if (!update) {
+        return response.badRequest({
+          message: `Data gagal update`,
+        })
+      }
 
-    await updateProfil.save()
+      // menampilkan data Profile yang sudah di update berdasarkan id
+      const show = await Profile.query().where('id', id).preload('user').first()
 
-    const showProfil = await Profile.find(idProfil)
-
-    // TODO: tidak bisa di gunakan bersama findOrFail()
-    // if (!updateProfil) {
-    //   return response.notFound({
-    //     message: `Data Dengan id: ${idProfil} Tidak Ditemukan`,
-    //   })
-    // }
-
-    // if (!showProfil) {
-    //   return response.badRequest({
-    //     message: `Data Dengan id: ${idProfil} Gagal Update`,
-    //     data: showProfil,
-    //   })
-    // }
-
-    return response.ok({
-      message: `Data Dengan id: ${idProfil} Berhasil Update`,
-      data: showProfil,
-    })
+      return response.ok({
+        message: `Data Dengan id: ${id} Berhasil Update`,
+        data: show,
+      })
+    } catch (error) {
+      return response.badRequest({
+        message: `Data gagal update`,
+        error,
+      })
+    }
   }
 
   public async destroy({ response, params }: HttpContextContract) {
