@@ -1,8 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { DateTime } from 'luxon'
-import { BaseModel, beforeSave, column } from '@ioc:Adonis/Lucid/Orm'
-import Hash from '@ioc:Adonis/Core/Hash' // TODO: import this
+import { BaseModel, beforeSave, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import Hash from '@ioc:Adonis/Core/Hash' // TODO: import untuk encoding password
 import Logger from '@ioc:Adonis/Core/Logger'
+import Profile from './Profile'
 
 export default class User extends BaseModel {
   public static table = 'users'
@@ -22,6 +22,7 @@ export default class User extends BaseModel {
   @column()
   public role: string
 
+  // melakukan Encoding terhadap inputan password menggunakan hash
   @beforeSave()
   public static async hashPassword(user: User) {
     if (user.$dirty.password) {
@@ -38,4 +39,10 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  // menghubungkan relasi dengan product melalui model product
+  @hasOne(() => Profile, {
+    foreignKey: 'user_id',
+  })
+  public profile: HasOne<typeof Profile>
 }
