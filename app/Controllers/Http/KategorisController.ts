@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import Database from '@ioc:Adonis/Lucid/Database'
+import Kategori from 'App/Models/Kategori'
 
 export default class KategorisController {
   public async store({ request, response }: HttpContextContract) {
@@ -41,10 +42,10 @@ export default class KategorisController {
   public async index({ response }: HttpContextContract) {
     try {
       // membuat var yg menampilkan semua data table kategorises
-      const dataKategori = await Database.from('kategorises').select('*')
+      const dataKategori = await Kategori.query().preload('product')
 
       return response.ok({
-        message: 'kumpulan data berhasil di dapat',
+        message: 'data berhasil di dapat',
         data: dataKategori,
       })
     } catch (err) {
@@ -59,7 +60,8 @@ export default class KategorisController {
     const id = params.id // mengambil id dari url api
 
     // menampilkan data berdasarkan id
-    const dataKategori = await Database.from('kategorises').where('id', id).first()
+    // const dataKategori = await Database.from('kategorises').where('id', id).first()
+    const dataKategori = await Kategori.query().where('id', id).preload('product').first()
 
     if (!dataKategori) {
       return response.notFound({
@@ -96,7 +98,7 @@ export default class KategorisController {
       .update(validationPayload)
 
     // mencari data berdasarkan id
-    const detailKategori = await Database.from('kategorises').where('id', params.id).first()
+    const detailKategori = await Kategori.query().where('id', params.id).preload('product').first()
 
     // jika data berdasar id tidak ada, maka mengembalikan notFound
     if (!detailKategori) {
