@@ -9,6 +9,12 @@ export default class ProfilesController {
         alamat: schema.string([rules.trim(), rules.minLength(10)]),
         bio: schema.string.nullable([rules.trim(), rules.minLength(10)]),
         no_hp: schema.string([rules.trim(), rules.minLength(11), rules.maxLength(14)]),
+        user_id: schema.number.nullable([
+          rules.exists({
+            table: 'users',
+            column: 'id',
+          }),
+        ]),
       })
 
       const validationPayload = await request.validate({ schema: validation })
@@ -29,7 +35,7 @@ export default class ProfilesController {
 
   public async index({ response }: HttpContextContract) {
     try {
-      const data = await Profile.query().preload('user')
+      const data = await Profile.query().orderBy('id', 'desc').preload('user')
 
       return response.ok({
         message: 'Data Success',
