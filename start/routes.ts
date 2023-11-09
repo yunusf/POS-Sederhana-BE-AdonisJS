@@ -34,5 +34,6 @@ Route.group(() => {
   Route.resource('kategori', 'KategorisController')
   Route.resource('users', 'UsersController')
   Route.resource('profiles', 'ProfilesController')
-  Route.resource('Products', 'ProductsController')
+  Route.resource('products', 'ProductsController')
+  Route.resource('transaction', 'TransactionsController')
 })

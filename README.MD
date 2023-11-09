@@ -17,6 +17,13 @@ Email: yunusf42@gmail.com
 * Database **SQL** dengan package **Lucid**
 * Menggunakan Hash **PHC-Bcrypt**
 
+---
+
+**Menjalankan Program Development**
+
+- menjalankan adonis: `npm run dev`
+- membuat data awal menggunakan seederr: `node ace db:seed -i` setelah itu spasi tabel yang di inginkan
+
 ----
 
 **Install lucid**
