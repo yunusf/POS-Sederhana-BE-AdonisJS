@@ -1,8 +1,17 @@
 import { DateTime } from 'luxon'
-import { BaseModel, beforeSave, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  beforeSave,
+  column,
+  hasOne,
+  HasOne,
+  hasMany,
+  HasMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import Hash from '@ioc:Adonis/Core/Hash' // TODO: import untuk encoding password
 import Logger from '@ioc:Adonis/Core/Logger'
 import Profile from './Profile'
+import Transaction from './Transaction'
 
 export default class User extends BaseModel {
   public static table = 'users'
@@ -45,4 +54,10 @@ export default class User extends BaseModel {
     foreignKey: 'user_id',
   })
   public profile: HasOne<typeof Profile>
+
+  // menghubungkan relasi dengan transaksi melalui model transaksi
+  @hasMany(() => Transaction, {
+    foreignKey: 'user_id',
+  })
+  public transaksi: HasMany<typeof Transaction>
 }

@@ -28,7 +28,10 @@ export default class UsersController {
     try {
       // membuat var baru berisi query select all dari table user
       // const dataUsers = await User.all()
-      const dataUsers = await User.query().preload('profile')
+      const dataUsers = await User.query()
+        .orderBy('id', 'desc')
+        .preload('profile')
+        .preload('transaksi')
 
       return response.ok({
         messege: 'Data Berhasil Ditampilkan',
@@ -46,7 +49,7 @@ export default class UsersController {
     try {
       // query select berdasar id dari table user
       await User.findByOrFail('id', params.id)
-      const data = await User.query().where('id', params.id).preload('profile')
+      const data = await User.query().where('id', params.id).preload('profile').preload('transaksi')
 
       return response.ok({
         message: 'Data Berhasil Ditampilkan',
@@ -96,7 +99,11 @@ export default class UsersController {
       }
 
       // menampilkan data user yang sudah di update berdasarkan id
-      const show = await User.query().where('id', id).preload('profile').first()
+      const show = await User.query()
+        .where('id', id)
+        .preload('profile')
+        .preload('transaksi')
+        .first()
 
       return response.ok({
         message: `Data Dengan id: ${id} Berhasil Update`,
