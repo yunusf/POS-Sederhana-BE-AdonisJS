@@ -66,7 +66,7 @@ export default class ProductsController {
       const updateProduct = await Product.query().where('id', id).preload('kategori').first()
 
       if (!updateProduct) {
-        return response.notFound({
+        return response.badRequest({
           message: `Data gagal update`,
         })
       }
