@@ -36,4 +36,5 @@ Route.group(() => {
   Route.resource('profiles', 'ProfilesController')
   Route.resource('products', 'ProductsController')
   Route.resource('transaction', 'TransactionsController')
+  Route.resource('transactionDetail', 'TransactionDetailsController')
 })
