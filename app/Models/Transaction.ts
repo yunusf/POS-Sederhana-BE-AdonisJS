@@ -1,6 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  belongsTo,
+  BelongsTo,
+  manyToMany,
+  ManyToMany,
+} from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import Product from './Product'
 
 export default class Transaction extends BaseModel {
   @column({ isPrimary: true })
@@ -32,4 +40,14 @@ export default class Transaction extends BaseModel {
     foreignKey: 'user_id',
   })
   public user: BelongsTo<typeof User>
+
+  // menghubungkan relasi many to many dengan product melalui modelnya
+  @manyToMany(() => Product, {
+    localKey: 'id',
+    pivotForeignKey: 'transaction_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'product_id',
+    pivotTable: 'transaction_details',
+  })
+  public product: ManyToMany<typeof Product>
 }

@@ -24,7 +24,7 @@ export default class TransactionsController {
     const add = await Transaction.create(vp)
 
     return response.ok({
-      message: 'Data berhasil ditambahkan',
+      message: 'Data Created',
       add,
     })
     // } catch (error) {
